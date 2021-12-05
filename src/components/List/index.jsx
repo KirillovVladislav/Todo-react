@@ -2,10 +2,19 @@ import React from 'react'
 import classNames from 'classnames'
 
 import Badge from '../Badge'
+import removeSvg from '../../assets/img/remove.svg'
 
 import './List.scss'
 
-const List = ({items, isRemovable, onClick}) => {
+const List = ({items, isRemovable, onClick, onRemove}) => {
+
+    const removeList = item => {
+        if (window.confirm('вы хотите удалить список ')) {
+            onRemove(item)
+        }
+    }
+
+
     return <ul onClick = {onClick} className='list'>
         {items.map((item ,index) => (
          <li key = {index} 
@@ -15,11 +24,12 @@ const List = ({items, isRemovable, onClick}) => {
                 )}
                 </i>
             <span>{item.name}</span>
+            {isRemovable && <img  onClick={() => removeList(item)}  className='list__remove__icon' src={removeSvg} alt="Remove icon" />}
             </li>
         ))}
     
      
-      
+     
     
   </ul>
 }
